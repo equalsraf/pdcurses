@@ -81,8 +81,13 @@ extern "C"
  *  PDCurses Type Declarations
  *
  */
-
+#if __STDC_VERSION__ >= 199901L
+# ifndef bool
+#  define bool _Bool
+# endif
+#else
 typedef unsigned char bool;    /* PDCurses Boolean type */
+#endif
 
 #ifdef CHTYPE_LONG
 # if _LP64
