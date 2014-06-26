@@ -13,8 +13,9 @@ O = o
 
 STRIP = strip
 
+mkfile_path := $(dir $(firstword $(MAKEFILE_LIST)))
 ifndef PDCURSES_SRCDIR
-	PDCURSES_SRCDIR = ..
+	PDCURSES_SRCDIR = $(mkfile_path)..
 endif
 
 include $(PDCURSES_SRCDIR)/version.mif
