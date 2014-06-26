@@ -25,14 +25,14 @@ osdir		= $(PDCURSES_SRCDIR)/win32
 PDCURSES_WIN_H	= $(osdir)/pdcwin.h
 
 ifeq ($(DEBUG),Y)
-	CFLAGS  = -g -Wall -DPDCDEBUG
-	LDFLAGS = -g
+	override CFLAGS  += -g -Wall -DPDCDEBUG
+	override LDFLAGS += -g
 else
-	CFLAGS  = -O2 -Wall
-	LDFLAGS =
+	override CFLAGS  += -O2 -Wall
+	override LDFLAGS +=
 endif
 
-CFLAGS += -I$(PDCURSES_SRCDIR)
+override CFLAGS += -I$(PDCURSES_SRCDIR)
 
 BASEDEF		= $(PDCURSES_SRCDIR)/exp-base.def
 WIDEDEF		= $(PDCURSES_SRCDIR)/exp-wide.def
@@ -40,19 +40,19 @@ WIDEDEF		= $(PDCURSES_SRCDIR)/exp-wide.def
 DEFDEPS		= $(BASEDEF)
 
 ifeq ($(WIDE),Y)
-	CFLAGS += -DPDC_WIDE
+	override CFLAGS += -DPDC_WIDE
 	DEFDEPS += $(WIDEDEF)
 endif
 
 ifeq ($(UTF8),Y)
-	CFLAGS += -DPDC_FORCE_UTF8
+	override CFLAGS += -DPDC_FORCE_UTF8
 endif
 
 DEFFILE		= pdcurses.def
 
 
 ifeq ($(DLL),Y)
-	CFLAGS += -DPDC_DLL_BUILD
+	override CFLAGS += -DPDC_DLL_BUILD
 	LIBEXE = ${CC} $(DEFFILE)
 	LIBFLAGS = -Wl,--out-implib,pdcurses.a -shared -o
 	LIBCURSES = pdcurses.dll
