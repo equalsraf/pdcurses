@@ -3,7 +3,7 @@
 # Usage: make -f [path\]mingwin32.mak [DEBUG=Y] [DLL=Y] [WIDE=Y] [UTF8=Y] [tgt]
 #
 # where tgt can be any of:
-# [all|demos|pdcurses.a|testcurs.exe...]
+# [all|demos|libpdcurses.a|testcurs.exe...]
 #
 # Set environment variables to change build tools
 #   CC, AR, STRIP
@@ -55,14 +55,14 @@ DEFFILE		= pdcurses.def
 ifeq ($(DLL),Y)
 	override CFLAGS += -DPDC_DLL_BUILD
 	LIBEXE = ${CC} $(DEFFILE)
-	LIBFLAGS = -Wl,--out-implib,pdcurses.a -shared -o
+	LIBFLAGS = -Wl,--out-implib,libpdcurses.a -shared -o
 	LIBCURSES = pdcurses.dll
 	LIBDEPS = $(LIBOBJS) $(PDCOBJS) $(DEFFILE)
 	CLEAN = $(LIBCURSES) *.a $(DEFFILE)
 else
 	LIBEXE = ${AR}
 	LIBFLAGS = rcv
-	LIBCURSES = pdcurses.a
+	LIBCURSES = libpdcurses.a
 	LIBDEPS = $(LIBOBJS) $(PDCOBJS)
 	CLEAN = *.a
 endif
@@ -103,7 +103,7 @@ endif
 
 $(LIBCURSES) : $(LIBDEPS)
 	$(LIBEXE) $(LIBFLAGS) $@ $?
-	-cp pdcurses.a panel.a
+	-cp libpdcurses.a libpanel.a
 
 $(LIBOBJS) $(PDCOBJS) : $(PDCURSES_HEADERS)
 $(PDCOBJS) : $(PDCURSES_WIN_H)
