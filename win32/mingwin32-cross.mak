@@ -77,13 +77,13 @@ install: install-headers install-libs
 
 install-headers:
 	install -d $(PREFIX)/include/
-	install $(PDCURSES_SRCDIR)/curses.h $(PREFIX)/include/
-	install $(PDCURSES_SRCDIR)/term.h $(PREFIX)/include/
-	install $(PDCURSES_SRCDIR)/panel.h $(PREFIX)/include/
+	install -m 0644 $(PDCURSES_SRCDIR)/curses.h $(PREFIX)/include/
+	install -m 0644 $(PDCURSES_SRCDIR)/term.h $(PREFIX)/include/
+	install -m 0644 $(PDCURSES_SRCDIR)/panel.h $(PREFIX)/include/
 
 install-libs: libs
 	install -d $(PREFIX)/lib/
-	install $(LIBCURSES) $(PREFIX)/lib/
+	install -m 0644 $(LIBCURSES) $(PREFIX)/lib/
 
 clean:
 	-rm *.o
